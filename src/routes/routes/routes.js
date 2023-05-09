@@ -1,7 +1,9 @@
 import Dashboard from "../../layout/Dashboard";
 import Main from "../../layout/Main";
 import AddProduct from "../../pages/AddProduct";
+import Cart from "../../pages/Cart";
 import Home from "../../pages/Home";
+import ProductDetails from "../../pages/ProductDetails";
 import ProductList from "../../pages/ProductList";
 
 const { createBrowserRouter } = require("react-router-dom");
@@ -14,6 +16,15 @@ const routes = createBrowserRouter([
             {
                 path: '/',
                 element: <Home />
+            },
+            {
+                path: '/cart',
+                element: <Cart />
+            },
+            {
+                path: '/product/:id',
+                element: <ProductDetails></ProductDetails>,
+                loader: ({ params }) => fetch(`http://localhost:5000/products/${params.id}`)
             }
         ]
     },

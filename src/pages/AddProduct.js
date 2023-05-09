@@ -1,10 +1,30 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { addProductData } from '../redux/thunk/products/addProductData';
 
 const AddProduct = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const formSubmit = data => {
-        console.log(data)
+    const dispatch = useDispatch()
+    const formSubmit = (data, e) => {
+        const product = {
+            ...data,
+            status: data.status === "true" ? true : false,
+        };
+
+        console.log(product);
+        toast.success('New Product Added.', {
+            style: {
+                border: '1px solid #713200',
+                padding: '16px',
+                color: '#713200',
+            },
+            iconTheme: {
+                primary: '#713200',
+                secondary: '#FFFAEE',
+            },
+        })
+        dispatch(addProductData(product))
     }
     return (
         <form onSubmit={handleSubmit(formSubmit)}>
@@ -24,6 +44,13 @@ const AddProduct = () => {
             </div>
             <div>
                 <label className="label">
+                    <span className="label-text">Product Type</span>
+                </label>
+                <input type="text" {...register('ProductType', { required: 'Provide a Type' })} placeholder="Type" className="input mb-2 input-bordered input-success text-sm w-full max-w-xl rounded-sm" />
+                {errors.ProductType && <p className='text-red-400 text-xs mt-1'>{errors.ProductType.message}</p>}
+            </div>
+            <div>
+                <label className="label">
                     <span className="label-text">Product Picture</span>
                 </label>
                 <input {...register('Picture1', { required: 'Provide Picture' })} type="text" placeholder="Picture1" className="input mb-2 input-bordered input-success text-sm w-full max-w-xl rounded-sm" />
@@ -40,17 +67,30 @@ const AddProduct = () => {
                     {errors.Price && <p className='text-red-400 text-xs mt-1'>{errors.Price.message}</p>}
                 </div>
                 <div>
-                    <div className="form-control w-48">
-                        <label className="label cursor-pointer">
-                            <span className="label-text">Stock Available</span>
-                            <input type="radio" name="radio-10" className="radio checked:bg-blue-500" checked />
+                    <div className="form-control w-48 flex flex-row items-center gap-2">
+                        <label className="label cursor-pointer" htmlFor='available'>
+                            Available
                         </label>
+                        <input
+                            type='radio'
+                            id='available'
+                            value={true}
+                            {...register("status")}
+                            className="radio checked:bg-blue-500"
+                        />
                     </div>
-                    <div className="form-control w-48">
-                        <label className="label cursor-pointer">
-                            <span className="label-text">Stock Out</span>
-                            <input type="radio" name="radio-10" className="radio checked:bg-red-500" />
+                    <div className="form-control w-48 flex flex-row items-center gap-2">
+                        <label className="label cursor-pointer" htmlFor='stockOut'>
+                            Stock out
                         </label>
+                        <input
+                            type='radio'
+                            id='stockOut'
+                            name='status'
+                            value={false}
+                            {...register("status")}
+                            className="radio checked:bg-red-500"
+                        />
                     </div>
                 </div>
             </div>

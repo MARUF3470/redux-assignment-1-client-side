@@ -5,6 +5,7 @@ const Header = () => {
     const menu = <>
         <Link className='btn btn-ghost rounded-sm' to='/'>Home</Link>
         <Link className='btn btn-ghost rounded-sm' to='/blog'>Blog</Link>
+        <Link className='btn btn-ghost rounded-sm' to='/cart'>cart</Link>
         <Link className='btn btn-ghost rounded-sm' to='/dashboard'>Dashboard</Link>
     </>
     return (
