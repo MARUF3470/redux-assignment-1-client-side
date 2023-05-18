@@ -13,7 +13,7 @@ const updatedProductData = (product) => {
             Price: product.Price
 
         }
-        const res = await fetch(`http://localhost:5000/products/${product.id}`, {
+        const res = await fetch(`https://good-gold-bighorn-sheep-hat.cyclic.app/products/${product.id}`, {
             method: 'PATCH',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -24,6 +24,7 @@ const updatedProductData = (product) => {
         console.log(data)
         if (data.acknowledged) {
             dispatch(updateProduct(product))
+            window.location.reload()
         }
     }
 }

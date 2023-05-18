@@ -2,7 +2,7 @@ import { deleteProduct } from "../../action/productAction"
 
 const deleteProductData = (id) => {
     return async (dispatch, getState) => {
-        const res = await fetch(`http://localhost:5000/products/${id}`, {
+        const res = await fetch(`https://good-gold-bighorn-sheep-hat.cyclic.app/products/${id}`, {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",

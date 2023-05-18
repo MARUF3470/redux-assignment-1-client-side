@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import updatedProductData from '../redux/thunk/products/updateProductData';
-const UpdateModal = ({ info }) => {
+const UpdateModal = ({ info, setIsOpen }) => {
     const { setUpdateModal, updateModal } = info
     const dispatch = useDispatch()
     const formSubmit = (event) => {
@@ -26,10 +26,8 @@ const UpdateModal = ({ info }) => {
             Price,
             Status: Status === 'true' ? true : false
         }
-        console.log(updatedProduct)
+
         dispatch(updatedProductData(updatedProduct))
-        setUpdateModal(null)
-        event.target.reset()
     }
     return (
         <div>

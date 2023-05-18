@@ -7,6 +7,7 @@ import UpdateModal from './UpdateModal';
 const ProductList = () => {
     const products = useSelector(state => state.product.products)
     const [updateModal, setUpdateModal] = useState(null)
+    const [isOpen, setIsOpen] = useState(false)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(loadProductData())
@@ -31,11 +32,13 @@ const ProductList = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {products.map(product => <Product key={product._id} product={product} setUpdateModal={setUpdateModal}></Product>)}
+                            {products.map(product => <Product key={product._id} product={product} setUpdateModal={setUpdateModal} setIsOpen={setIsOpen}></Product>)}
                         </tbody>
                     </table>
                 </div>
-                <UpdateModal info={info} ></UpdateModal>
+                {
+                    isOpen && <UpdateModal info={info} setIsOpen={setIsOpen} ></UpdateModal>
+                }
             </div>
         </div>
     );

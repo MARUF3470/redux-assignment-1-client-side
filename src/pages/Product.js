@@ -2,8 +2,12 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import deleteProductData from '../redux/thunk/products/deleteProductData';
 
-const Product = ({ product, setUpdateModal }) => {
+const Product = ({ product, setUpdateModal, setIsOpen }) => {
     const dispatch = useDispatch()
+    const handleModal = () => {
+        setUpdateModal(product)
+        setIsOpen(true)
+    }
     return (
         <tr className='h-40'>
             <th className='border'>
@@ -12,7 +16,7 @@ const Product = ({ product, setUpdateModal }) => {
                 </button>
             </th>
             <th className='border'>
-                <label onClick={() => setUpdateModal(product)} htmlFor="my-modal-3" className="btn btn-xs btn-primary rounded-sm">open modal</label>
+                <label onClick={handleModal} htmlFor="my-modal-3" className="btn btn-xs btn-primary rounded-sm">open modal</label>
             </th>
             <td className='border'>
                 <div>
